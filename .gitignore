@@ -1,0 +1,47 @@
+## 기본 .NET 빌드 결과물 무시
+bin/
+obj/
+
+## 사용자 설정 파일
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code 관련
+.vscode/
+
+## NuGet 패키지
+*.nupkg
+packages/
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## 로그 파일
+*.log
+
+## 임시 파일
+*.tmp
+*.temp
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## 기타
+*.dbmdl
+*.psess
+*.vsp
+*.vspx
+*.vspscc
+*.vssscc
+*.pdb
+
+## Visual Studio 관련
+.vs/
+
+## Rider (JetBrains)
+.idea/
+*.sln.iml
