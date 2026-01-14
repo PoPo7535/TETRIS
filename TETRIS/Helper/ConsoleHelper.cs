@@ -12,13 +12,13 @@ public static class ConsoleHelper
         Console.OutputEncoding = Encoding.UTF8;
         sr = new StreamReader(Console.OpenStandardInput());
         sw =  new StreamWriter(Console.OpenStandardOutput());;
-        colors.Add(ColorType.Red,    "\e[38;2;255;0;0m");         // 빨강
-        colors.Add(ColorType.Pink,   "\e[38;2;255;105;180m");     // 핑크
-        colors.Add(ColorType.Orange, "\e[38;2;255;165;0m");       // 주황
-        colors.Add(ColorType.Yellow, "\e[38;2;255;255;0m");       // 노랑
-        colors.Add(ColorType.Green,  "\e[38;2;0;255;0m");         // 초록
-        colors.Add(ColorType.Blue,   "\e[38;2;0;128;255m");       // 파랑
-        colors.Add(ColorType.Purple, "\e[38;2;128;0;128m");       // 보라
+        colors.Add(ColorType.Red,    "\e[38;2;255;60;60m");  
+        colors.Add(ColorType.Pink,   "\e[38;2;255;105;180m");
+        colors.Add(ColorType.Orange, "\e[38;2;255;165;0m");  
+        colors.Add(ColorType.Yellow, "\e[38;2;255;255;0m");  
+        colors.Add(ColorType.Green,  "\e[38;2;120;255;120m");
+        colors.Add(ColorType.Blue,   "\e[38;2;0;128;255m");  
+        colors.Add(ColorType.Purple, "\e[38;2;160;64;160m"); 
     }
 
     public static void Flush() 

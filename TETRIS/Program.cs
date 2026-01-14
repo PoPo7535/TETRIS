@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Text;
+using MyApp.FSM;
 
 
 namespace MyApp
@@ -9,10 +10,19 @@ namespace MyApp
     {
         static void Main()
         {
-            ConsoleHelper.Write("A", ColorType.Blue);
-            ConsoleHelper.Write("A", ColorType.Pink);
-            ConsoleHelper.Write("A", ColorType.Red);
-            ConsoleHelper.Flush();
+            IGameStep title = new MainTitle();
+
+            title.Enter();
+
+
+
+
+            Console.WriteLine($"▣▣▣▣▣▣▣▣▣▣▣▣");
+            Console.WriteLine($"▣▣▣▣▣▣▣▣▣▣▣▣");
+        }
+
+        void GameLoop()
+        {
         }
     }
 }
