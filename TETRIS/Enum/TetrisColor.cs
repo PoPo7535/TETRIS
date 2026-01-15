@@ -1,6 +1,6 @@
 ﻿namespace MyApp;
 
-public enum ColorType
+public enum TetrisColor
 {
     Red,
     Pink,
