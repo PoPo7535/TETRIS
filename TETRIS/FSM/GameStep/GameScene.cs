@@ -5,6 +5,8 @@ public class GameScene(GameStepFSM fsm) : GameStep(fsm)
     public override void Enter()
     {
         Console.Clear();
+        Console.WriteLine($"▣▣▣▣▣▣▣▣▣▣▣▣");
+        Console.WriteLine($"▣▣▣▣▣▣▣▣▣▣▣▣");
     }
 
     public override void Update(ConsoleKeyInfo? keyInfo)
@@ -18,4 +20,6 @@ public class GameScene(GameStepFSM fsm) : GameStep(fsm)
     public override void Exit()
     {
     }
+    // Console.WriteLine($"▣▣▣▣▣▣▣▣▣▣▣▣");
+    // Console.WriteLine($"▣▣▣▣▣▣▣▣▣▣▣▣");
 }

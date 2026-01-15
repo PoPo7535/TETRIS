@@ -2,14 +2,6 @@
 
 public abstract class GameStep(GameStepFSM fsm)
 {
-    protected GameStepFSM _fsm = fsm;
-
-    protected void Init(GameStepFSM fsm)
-    {
-        _fsm = fsm;
-    }
-
-
     public abstract void Enter();
 
     public abstract void Update(ConsoleKeyInfo? keyInfo);
@@ -17,4 +9,4 @@ public abstract class GameStep(GameStepFSM fsm)
     protected abstract void Render();
 
     public abstract void Exit();
-}
+} 

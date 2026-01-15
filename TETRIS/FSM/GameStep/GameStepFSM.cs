@@ -10,7 +10,6 @@ public class GameStepFSM
         mainTitle = new MainTitle(this);
         gameScene = new GameScene(this);
         
-        
         curGameStep = mainTitle;
         curGameStep.Enter();
     }
@@ -32,7 +31,6 @@ public class GameStepFSM
         curGameStep = nextStep;
         curGameStep.Enter();
     }
-
 
     public enum EGameStep
     {
