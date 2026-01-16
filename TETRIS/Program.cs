@@ -3,10 +3,11 @@ namespace MyApp
 {
     internal static class Program
     {
-        private static readonly SceneManager SceneManager = new();
+        private static SceneManager SceneManager;
 
         private static void Main()
         {
+            SceneManager = new SceneManager();
             GameLoop();
         }
 
@@ -35,8 +36,3 @@ namespace MyApp
         }
     }
 }
-
-// var sr = new StreamReader(Console.OpenStandardInput());
-// var sw = new StreamWriter(Console.OpenStandardOutput());
-// sr.Close();
-// sw.Close();

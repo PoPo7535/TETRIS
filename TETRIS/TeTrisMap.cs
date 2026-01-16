@@ -36,13 +36,14 @@ public class TeTrisMap
     ];
     public void Map()
     {
-        for (int i = 0; i < mapString.Length; i++)
+        for (int y = 0; y < mapString.Length; y++)
         {
-            for (int j = 0; j < mapString[i].Length; j++)
+            for (int x = 0; x < mapString[y].Length; x++)
             {
-                ConsoleHelper.Write(mapString[i][j],j,i);
+                if(' ' == mapString[y][x])
+                    continue;
+                ConsoleHelper.Write(mapString[y][x],x,y);
             }
-            ConsoleHelper.Write('n');
         }
     }
 }

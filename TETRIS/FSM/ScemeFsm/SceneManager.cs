@@ -2,34 +2,34 @@
 
 public class SceneManager
 {
-    private Fsm _curFsm;
-    private readonly Fsm _mainTitle;
-    private readonly Fsm _game;
+    private Fsm _curScene;
+    private readonly Fsm _titleScene;
+    private readonly Fsm _gameScene;
     public SceneManager()
     {
-        _mainTitle = new Title(this);
-        _game = new Game(this);
+        _titleScene = new TitleScene(this);
+        _gameScene = new GameScene(this);
         
-        _curFsm = _mainTitle;
-        _curFsm.Enter();
+        _curScene = _titleScene;
+        _curScene.Enter();
     }
     
     public void Update(ConsoleKeyInfo? keyInfo)
     {
-        _curFsm.Update(keyInfo);
+        _curScene.Update(keyInfo);
     }
 
     public void ChangeStep(SceneStep gameStep)
     {
-        _curFsm.Exit();
+        _curScene.Exit();
         var nextStep = gameStep switch
         {
-            SceneStep.MainTitle => _mainTitle,
-            SceneStep.GameScene => _game,
-            _ => _mainTitle
+            SceneStep.MainTitle => _titleScene,
+            SceneStep.GameScene => _gameScene,
+            _ => _titleScene
         };
-        _curFsm = nextStep;
-        _curFsm.Enter();
+        _curScene = nextStep;
+        _curScene.Enter();
     }
 
 

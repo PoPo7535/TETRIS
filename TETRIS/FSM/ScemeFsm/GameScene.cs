@@ -2,7 +2,7 @@
 
 namespace MyApp.FSM;
 
-public class Game(SceneManager fsm) : Fsm(fsm)
+public class GameScene(SceneManager fsm) : Fsm(fsm)
 {
     private TeTrisMap _map = new();
     public override void Enter()

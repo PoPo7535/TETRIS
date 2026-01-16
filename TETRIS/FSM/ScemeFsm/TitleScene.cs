@@ -1,6 +1,6 @@
 ﻿namespace MyApp.FSM;
 
-public class Title(SceneManager fsm) : Fsm(fsm)
+public class TitleScene(SceneManager fsm) : Fsm(fsm)
 {
     public override void Enter()
     {
