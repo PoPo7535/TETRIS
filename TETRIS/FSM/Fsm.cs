@@ -1,6 +1,6 @@
 ﻿namespace MyApp.FSM;
 
-public abstract class SceneFsm(SceneManager fsm)
+public abstract class Fsm(SceneManager fsm)
 {
     public abstract void Enter();
 

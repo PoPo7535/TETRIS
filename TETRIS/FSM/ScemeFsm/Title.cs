@@ -1,6 +1,6 @@
 ﻿namespace MyApp.FSM;
 
-public class TitleScene(SceneManager fsm) : SceneFsm(fsm)
+public class Title(SceneManager fsm) : Fsm(fsm)
 {
     public override void Enter()
     {
@@ -35,6 +35,7 @@ public class TitleScene(SceneManager fsm) : SceneFsm(fsm)
 
     public override void Exit()
     {
+        Console.Clear();
     }
 
     private TetrisColor[] logoColor =

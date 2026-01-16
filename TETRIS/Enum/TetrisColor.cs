@@ -2,6 +2,7 @@
 
 public enum TetrisColor
 {
+    None,
     Red,
     Pink,
     Orange,

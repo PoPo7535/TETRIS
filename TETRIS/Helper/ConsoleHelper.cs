@@ -19,36 +19,36 @@ public static class ConsoleHelper
         colors.Add(TetrisColor.Blue, "\e[38;2;0;128;255m");
         colors.Add(TetrisColor.Purple, "\e[38;2;160;64;160m");
     }
-
-
     public static void Write(string str)
         => Console.Write(str);
 
     public static void Write(char str)
-        => Console.Write(str);
-    public static void Write(string str, int left, int top)
+        => Write(str.ToString());
+
+    public static void Write(string str, int left, int top, TetrisColor tetrisColor = TetrisColor.None)
     {
         var cursorBuffer = Console.GetCursorPosition();
         Console.SetCursorPosition(left, top);
-        Console.Write($"{str}\n");
+        if (tetrisColor != TetrisColor.None)
+            Console.Write($"{str}");
+        else
+            Console.Write($"{colors[tetrisColor]}{str}\e[0m");
         Console.SetCursorPosition(cursorBuffer.Left, cursorBuffer.Top);
+    }
+    
+    public static void Write(char str, int left, int top, TetrisColor tetrisColor = TetrisColor.None)
+    {
+        Write(str.ToString(), left, top, tetrisColor);
     }
 
     public static void Write(string str, TetrisColor tetrisColor)
         => Console.Write($"{colors[tetrisColor]}{str}\e[0m");
 
     public static void WriteLine(string str) =>
-        Console.Write($"{str}\n");
-    public static void WriteLine(string str, int left, int top)
+        Write($"{str}\n");
+    
+    public static void WriteLine(string str, int left, int top,  TetrisColor tetrisColor = TetrisColor.None)
     {
-        var cursorBuffer = Console.GetCursorPosition();
-        Console.SetCursorPosition(left, top);
-        Console.Write($"{str}\n");
-        Console.SetCursorPosition(cursorBuffer.Left, cursorBuffer.Top);
+        Write($"{str}\n", left, top, tetrisColor);
     }
-
-public static void WriteLine(string str, TetrisColor tetrisColor) 
-        => Console.Write($"{colors[tetrisColor]}{str}\e[0m\n");
-
-
 }
