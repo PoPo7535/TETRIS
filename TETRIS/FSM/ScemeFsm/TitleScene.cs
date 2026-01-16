@@ -1,17 +1,16 @@
 ﻿namespace MyApp.FSM;
 
-public class MainTitle(GameStepFSM fsm) : GameStep(fsm)
+public class TitleScene(SceneManager fsm) : SceneFsm(fsm)
 {
     public override void Enter()
     {
         ConsoleHelper.Write('\n');
-        foreach (var t in logo)
+        foreach (var str in logo)
         {
-            for (int cal = 0; cal < t.Length; ++cal)
+            for (int cal = 0; cal < str.Length; ++cal)
             {
-                ConsoleHelper.Write(t[cal], logoColor[cal]);
+                ConsoleHelper.Write(str[cal], logoColor[cal]);
             }
-
             ConsoleHelper.Write('\n');
         }
 
@@ -27,7 +26,7 @@ public class MainTitle(GameStepFSM fsm) : GameStep(fsm)
     {
         if (keyInfo == null)
             return;
-        fsm.ChangeStep(GameStepFSM.EGameStep.GameScene);
+        fsm.ChangeStep(SceneStep.GameScene);
     }
 
     protected override void Render()

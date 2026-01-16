@@ -3,7 +3,7 @@ namespace MyApp
 {
     internal static class Program
     {
-        private static GameStepFSM fsm = new();
+        private static readonly SceneManager SceneManager = new();
 
         private static void Main()
         {
@@ -19,7 +19,7 @@ namespace MyApp
             {
                 var start = DateTime.Now;
 
-                fsm.Update(GetKeyInput());
+                SceneManager.Update(GetKeyInput());
 
                 var elapsed = (DateTime.Now - start).TotalMilliseconds;
                 var sleepTime = Math.Max(0, frameTimeMs - (int)elapsed);
