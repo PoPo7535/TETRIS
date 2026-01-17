@@ -5,7 +5,7 @@ public class TitleScene(SceneManager fsm) : Fsm(fsm)
     public override void Enter()
     {
         ConsoleHelper.Write('\n');
-        foreach (var str in logo)
+        foreach (var str in Strings.Logo)
         {
             for (int cal = 0; cal < str.Length; ++cal)
             {
@@ -47,14 +47,4 @@ public class TitleScene(SceneManager fsm) : Fsm(fsm)
         TetrisColor.Blue,
         TetrisColor.Purple
     ];
-
-    private string[][] logo = new string[][]
-    {
-        ["████████╗", "███████╗", "████████╗", "██████╗ ", "██╗", " ██████╗"],
-        ["╚══██╔══╝", "██╔════╝", "╚══██╔══╝", "██╔══██╗", "██║", "██╔════╝"],
-        ["   ██║   ", "█████╗  ", "   ██║   ", "██████╔╝", "██║", "╚█████╗ "],
-        ["   ██║   ", "██╔══╝  ", "   ██║   ", "██╔══██╗", "██║", " ╚═══██╗"],
-        ["   ██║   ", "███████╗", "   ██║   ", "██║  ██║", "██║", "██████╔╝"],
-        ["   ╚═╝   ", "╚══════╝", "   ╚═╝   ", "╚═╝  ╚═╝", "╚═╝", "╚═════╝ "],
-    };
 }

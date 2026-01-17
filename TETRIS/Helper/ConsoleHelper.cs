@@ -9,7 +9,7 @@ public static class ConsoleHelper
     static ConsoleHelper()
     {
         Console.OutputEncoding = Encoding.UTF8;
-        Console.SetWindowSize(100,30);
+        Console.SetWindowSize(100,25);
         Console.CursorVisible = false;
         colors.Add(TetrisColor.Red, "\e[38;2;255;60;60m");
         colors.Add(TetrisColor.Pink, "\e[38;2;255;105;180m");
@@ -39,6 +39,14 @@ public static class ConsoleHelper
     public static void Write(char str, int left, int top, TetrisColor tetrisColor = TetrisColor.None)
     {
         Write(str.ToString(), left, top, tetrisColor);
+    }
+    public static void Write(string str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
+    {
+        Write(str, pos.left, pos.top, tetrisColor);
+    }
+    public static void Write(char str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
+    {
+        Write(str.ToString(), pos.left, pos.top, tetrisColor);
     }
 
     public static void Write(string str, TetrisColor tetrisColor)
