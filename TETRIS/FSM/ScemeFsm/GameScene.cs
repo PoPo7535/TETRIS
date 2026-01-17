@@ -4,10 +4,10 @@ namespace MyApp.FSM;
 
 public class GameScene(SceneManager fsm) : Fsm(fsm)
 {
-    private TeTrisMap _map = new();
+    private readonly TeTrisMap _map = new();
     public override void Enter()
     {
-        _map.Map();
+        _map.Init();
     }
 
     public override void Update(ConsoleKeyInfo? keyInfo)
