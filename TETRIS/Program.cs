@@ -13,9 +13,6 @@ namespace MyApp
 
         private static void GameLoop()
         {
-            const int targetFps = 60;
-            const int frameTimeMs = 1000 / targetFps; // 약 16ms
-
             while (GameManager.isRunning)
             {
                 var start = DateTime.Now;
@@ -23,7 +20,7 @@ namespace MyApp
                 SceneManager.Update(GetKeyInput());
 
                 var elapsed = (DateTime.Now - start).TotalMilliseconds;
-                var sleepTime = Math.Max(0, frameTimeMs - (int)elapsed);
+                var sleepTime = Math.Max(0, GameManager.FrameTimeMs - (int)elapsed);
                 Thread.Sleep(sleepTime);
             }
         }

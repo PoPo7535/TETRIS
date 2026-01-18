@@ -5,11 +5,14 @@ namespace MyApp;
 public class TeTrisMap
 {
     private readonly TetrisColor[,] _map = new TetrisColor[20, 10];
-    private BlockInfo _holdBlock;
-    private readonly BlockInfo[] _nextBlock = new BlockInfo[4];
+    private BlockInfo? _holdBlock;
     private BlockInfo _handleBlock;
+    private readonly BlockInfo[] _nextBlock = new BlockInfo[4];
     private (BlockType type, int probability)[] _typeProbability;
     private readonly Random _random = new();
+    
+    private int fpsCounter = 0;
+
     private readonly (int x, int y) _renderOff = (5, 0);
     private (int x, int y) HoldPos => (2 + _renderOff.x, 2 + _renderOff.y);
     private (int x, int y) NextPos => (20 + _renderOff.x, 2 + _renderOff.y);
@@ -81,9 +84,21 @@ public class TeTrisMap
 
     public void SwapBlock()
     {
-        (_handleBlock, _holdBlock) = (_holdBlock, _handleBlock);
-        SetBlock(_holdBlock.shape, HoldPos.x, HoldPos.y, _holdBlock.color);
-        SetBlock(_handleBlock.shape, HandelBlockStartPos.x, HandelBlockStartPos.y, _handleBlock.color);
+        ClearHandleBlock(_handelBlockPos);
+        if (_holdBlock != null)
+        {
+            (_handleBlock, _holdBlock) = (_holdBlock.Value, _handleBlock);
+            SetBlock(_handleBlock.shape, HandelBlockStartPos.x, HandelBlockStartPos.y, _handleBlock.color);
+            SetBlock(_holdBlock.Value.shape, HoldPos.x, HoldPos.y, _holdBlock.Value.color);
+        }
+        else
+        {
+            _holdBlock = _handleBlock;
+            SetBlock(_handleBlock.shape, HoldPos.x, HoldPos.y, _handleBlock.color);
+            SetHandleBlockFromNextBlock();
+        }
+        _handelBlockPos = HandelBlockStartPos;
+
     }
 
     private void SetBlock(string[] shape, int xPos, int yPos, TetrisColor tetrisColor)
@@ -118,18 +133,22 @@ public class TeTrisMap
         ConsoleHelper.Write(score.ToString(), ScorePos);
     }
 
-    public void ClearLine()
+    public void Update(ConsoleKeyInfo? keyInfo)
     {
+        ++fpsCounter;
+        if (GameManager.TargetFps < fpsCounter)
+        {
+            TryHandleBlockMove((_handelBlockPos.x, _handelBlockPos.y + 1));
+            fpsCounter = 0;
+        }
+
+        Control(keyInfo);
     }
 
-    public void Control(ConsoleKeyInfo? keyInfo)
+    private void Control(ConsoleKeyInfo? keyInfo)
     {
         if (keyInfo == null)
             return;
-        if ((keyInfo.Value.Modifiers & ConsoleModifiers.Shift) != 0)
-        {
-        }
-
 
         switch (keyInfo.Value.Key)
         {
@@ -148,13 +167,17 @@ public class TeTrisMap
             case ConsoleKey.Spacebar:
                 DropBlock();
                 break;
+            case ConsoleKey.C:
+                SwapBlock();
+                break;
         }
     }
 
-    private void TryHandleBlockMove((int x, int y) movePos)
+    private bool TryHandleBlockMove((int x, int y) movePos)
     {
         ClearHandleBlock(_handelBlockPos);
         DrawHandleBlock(movePos);
+        return true;
     }
 
     private void TryHandleBlockRotationBlock()
@@ -169,7 +192,7 @@ public class TeTrisMap
             {
                 if(_handleBlock.shape[y][x] == ' ' )
                     continue;
-                ConsoleHelper.Write('□', pos.x + x, pos.y + y, _handleBlock.color);
+                ConsoleHelper.Write(_handleBlock.shape[y][x], pos.x + x, pos.y + y, _handleBlock.color);
             }
         }
         _handelBlockPos = pos;
@@ -189,10 +212,6 @@ public class TeTrisMap
     }
 
     private void DropBlock()
-    {
-        
-    }
-    public void NextTick()
     {
         
     }

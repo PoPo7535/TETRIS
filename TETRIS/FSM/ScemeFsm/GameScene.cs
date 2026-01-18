@@ -12,7 +12,7 @@ public class GameScene(SceneManager fsm) : Fsm(fsm)
 
     public override void Update(ConsoleKeyInfo? keyInfo)
     {
-        _map.Control(keyInfo);
+        _map.Update(keyInfo);
     }
 
     protected override void Render()
