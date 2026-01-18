@@ -6,7 +6,6 @@ public abstract class Fsm(SceneManager fsm)
 
     public abstract void Update(ConsoleKeyInfo? keyInfo);
 
-    protected abstract void Render();
 
     public abstract void Exit();
 } 

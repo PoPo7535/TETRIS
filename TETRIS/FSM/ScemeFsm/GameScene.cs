@@ -15,10 +15,6 @@ public class GameScene(SceneManager fsm) : Fsm(fsm)
         _map.Update(keyInfo);
     }
 
-    protected override void Render()
-    {
-    }
-
     public override void Exit()
     {
     }

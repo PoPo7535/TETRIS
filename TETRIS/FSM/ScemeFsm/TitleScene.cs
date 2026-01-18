@@ -29,9 +29,6 @@ public class TitleScene(SceneManager fsm) : Fsm(fsm)
         fsm.ChangeStep(SceneStep.GameScene);
     }
 
-    protected override void Render()
-    {
-    }
 
     public override void Exit()
     {
