@@ -13,13 +13,15 @@ public class TeTrisMap
     
     private int fpsCounter = 0;
 
+    private  (int x, int y) _handelBlockPos = (0, 0);
     private readonly (int x, int y) _renderOff = (5, 0);
+    private readonly (int x, int y) _mapStartPos = (13, 1);
     private (int x, int y) HoldPos => (2 + _renderOff.x, 2 + _renderOff.y);
     private (int x, int y) NextPos => (20 + _renderOff.x, 2 + _renderOff.y);
     private (int x, int y) LevelPos => (36 + _renderOff.x, 4 + _renderOff.y);
     private (int x, int y) ScorePos => (36 + _renderOff.x, 5 + _renderOff.y);
-    private (int x, int y) _handelBlockPos = (0, 0);
     private (int x, int y) HandelBlockStartPos => (_renderOff.x + 11, 1);
+    
 
     public void Init()
     {
@@ -173,11 +175,12 @@ public class TeTrisMap
         }
     }
 
-    private bool TryHandleBlockMove((int x, int y) movePos)
+    private void TryHandleBlockMove((int x, int y) movePos)
     {
+        if (false == CanHandleBlockMove(movePos))
+            return;
         ClearHandleBlock(_handelBlockPos);
         DrawHandleBlock(movePos);
-        return true;
     }
 
     private void TryHandleBlockRotationBlock()
@@ -186,6 +189,9 @@ public class TeTrisMap
 
     private void DrawHandleBlock((int x, int y) pos)
     {
+
+
+        
         for (int y = 0; y < _handleBlock.shape.Length; ++y)
         {
             for (int x = 0; x < _handleBlock.shape[y].Length; ++x)
@@ -209,6 +215,26 @@ public class TeTrisMap
                 ConsoleHelper.Write(' ', pos.x + x, pos.y + y);
             }
         }
+    }
+
+    private bool CanHandleBlockMove((int x, int y) pos)
+    {
+        for (int y = 0; y < _handleBlock.shape.Length; ++y)
+        {
+            for (int x = 0; x < _handleBlock.shape[y].Length; ++x)
+            {
+                if(_handleBlock.shape[y][x] == ' ' )
+                    continue;
+                var xPos = pos.x + x - _mapStartPos.x;
+                if (_map[y, x] != TetrisColor.None)
+                    return false;
+                if (xPos < 0 ||  10 <= xPos)  
+                    return false;
+                if (24 <= pos.y + y)  
+                    return false;
+            }
+        }
+        return true;
     }
 
     private void DropBlock()
