@@ -51,7 +51,7 @@ public class TeTrisMap
         SetHandleBlockFromNextBlock();
     }
 
-    public BlockType GetRandomBlockType()
+    private BlockType GetRandomBlockType()
     {
         var sum = 0;
         for (int i = 0; i < _typeProbability.Length; i++)
@@ -76,7 +76,7 @@ public class TeTrisMap
         return BlockType.I;
     }
 
-    public void SetNextBlock(int index, BlockType blockType)
+    private void SetNextBlock(int index, BlockType blockType)
     {
         var offY = NextPos.y + (index * 5);
         var blockInfo = Strings.BlockInfo[blockType];
@@ -84,7 +84,7 @@ public class TeTrisMap
         DrawBlock(blockInfo.shape, NextPos.x, offY, blockInfo.color);
     }
 
-    public void SwapBlock()
+    private void SwapBlock()
     {
         ClearHandleBlock(_handleBlockPos);
         if (_holdBlock != null)
@@ -111,7 +111,7 @@ public class TeTrisMap
         ConsoleHelper.Write(shape[1], xPos, yPos + 1, tetrisColor);
     }
 
-    public void SetHandleBlockFromNextBlock()
+    private void SetHandleBlockFromNextBlock()
     {
         _handleBlock = _nextBlock[0];
         _handleBlockPos = HandelBlockStartPos;
@@ -138,7 +138,7 @@ public class TeTrisMap
     public void Update(ConsoleKeyInfo? keyInfo)
     {
         ++fpsCounter;
-        if (GameManager.TargetFps -30< fpsCounter)
+        if (GameManager.TargetFps - 30 < fpsCounter)
         {
             TryHandleBlockDown();
         }
@@ -154,28 +154,53 @@ public class TeTrisMap
         {
             SetBlock();
             SetHandleBlockFromNextBlock();
+            TryClearLine();
         }
     }
 
     private void TryClearLine()
     {
-        var line = 0;
-        for (int y = _map.Length - 1; y >= 0; y--)
+        var count = 0;
+        for (int y = 22; y >= 0; y--)
         {
-            var lineClear = false;
-            for (int x = 0; x < _map.Length; ++x)
+            var lineClear = true;
+            for (int x = 0; x < 10; ++x)
             {
-                if (_map[y, x] != TetrisColor.None)
-                    continue;
-                lineClear = true;
+                if (_map[y, x] == TetrisColor.None)
+                {
+                    lineClear = false;
+                    break;
+                }
             }
 
             if (lineClear)
             {
-                ++line;
+                ++count;
+                for (int x = 0; x < 10; ++x)
+                {
+                    _map[y, x] = TetrisColor.None;
+                    ConsoleHelper.Write(' ', _mapStartPos.x + x, _mapStartPos.y + y);
+                }
+            }
+            else
+            {
+                if (count == 0)
+                    continue;
+                for (int x = 0; x < 10; ++x)
+                {
+                    var color = _map[y, x];
+                    _map[y, x] = TetrisColor.None;
+                    ConsoleHelper.Write(color == TetrisColor.None 
+                            ? ' ' 
+                            : '▣', 
+                        _mapStartPos.x + x,
+                        _mapStartPos.y + y + count, color);
+                    _map[y + count, x] = color;
+                }
             }
         }
     }
+
     private void Control(ConsoleKeyInfo? keyInfo)
     {
         if (keyInfo == null)
@@ -226,7 +251,7 @@ public class TeTrisMap
         ClearHandleBlock(_handleBlockPos);
         DrawHandleBlock(movePos);
         return true;
-        
+
         bool CanHandleBlockMove((int x, int y) pos)
         {
             for (int y = 0; y < _handleBlock.shape.Length; ++y)
@@ -257,7 +282,7 @@ public class TeTrisMap
         _handleBlock.RotationShape();
         DrawHandleBlock(_handleBlockPos);
         return true;
-        
+
         bool CanHandleBlockRotation()
         {
             for (int y = 0; y < _handleBlock.rotationShape.Length; ++y)
@@ -291,6 +316,7 @@ public class TeTrisMap
                 ConsoleHelper.Write(_handleBlock.shape[y][x], pos.x + x, pos.y + y, _handleBlock.color);
             }
         }
+
         _handleBlockPos = pos;
     }
 
@@ -306,7 +332,7 @@ public class TeTrisMap
             }
         }
     }
-    
+
 
     private void DropBlock()
     {
