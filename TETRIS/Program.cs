@@ -13,7 +13,7 @@ namespace MyApp
 
         private static void GameLoop()
         {
-            const int targetFps = 1;
+            const int targetFps = 60;
             const int frameTimeMs = 1000 / targetFps; // 약 16ms
 
             while (GameManager.isRunning)

@@ -6,7 +6,7 @@ public static class Strings
     {
         BlockInfo = new Dictionary<BlockType, BlockInfo>
         {
-            { BlockType.I, new BlockInfo(BlockType.I, TetrisColor.Blue, BlockI) },
+            { BlockType.I, new BlockInfo(BlockType.I, TetrisColor.SkyBlue, BlockI) },
             { BlockType.O, new BlockInfo(BlockType.O, TetrisColor.Yellow, BlockO) },
             { BlockType.Z, new BlockInfo(BlockType.Z, TetrisColor.Red, BlockZ) },
             { BlockType.S, new BlockInfo(BlockType.S, TetrisColor.Green, BlockS) },
@@ -153,6 +153,10 @@ public static class Strings
     private static readonly string[][] BlockT = new string[][]
     {
         [
+            " ▣ ",
+            "▣▣▣",
+        ],
+        [
             " ▣",
             " ▣▣",
             " ▣",
@@ -166,10 +170,6 @@ public static class Strings
             " ▣",
             "▣▣",
             " ▣",
-        ],
-        [
-            " ▣ ",
-            "▣▣▣",
         ],
     };
 }

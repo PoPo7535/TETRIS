@@ -18,6 +18,7 @@ public static class ConsoleHelper
         colors.Add(TetrisColor.Green, "\e[38;2;120;255;120m");
         colors.Add(TetrisColor.Blue, "\e[38;2;0;128;255m");
         colors.Add(TetrisColor.Purple, "\e[38;2;160;64;160m");
+        colors.Add(TetrisColor.SkyBlue, "\e[38;2;135;206;235m");
     }
     public static void Write(string str)
         => Console.Write(str);
@@ -41,15 +42,15 @@ public static class ConsoleHelper
         Write(str.ToString(), left, top, tetrisColor);
     }
     public static void Write(string str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
-    {
-        Write(str, pos.left, pos.top, tetrisColor);
-    }
-    public static void Write(char str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
-    {
-        Write(str.ToString(), pos.left, pos.top, tetrisColor);
-    }
-
-    public static void Write(string str, TetrisColor tetrisColor)
+                                 {
+                                     Write(str, pos.left, pos.top, tetrisColor);
+                                 }
+                                 public static void Write(char str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
+                                 {
+                                     Write(str.ToString(), pos.left, pos.top, tetrisColor);
+                                 }
+                             
+                                 public static void Write(string str, TetrisColor tetrisColor)
         => Console.Write($"{colors[tetrisColor]}{str}\e[0m");
 
     public static void WriteLine(string str) =>
