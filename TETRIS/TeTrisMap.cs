@@ -11,8 +11,9 @@ public class TeTrisMap
     private (BlockType type, int probability)[] _typeProbability;
     private readonly Random _random = new();
     private (int x, int y) _preivousPredictionPos;
-
+    private LevelInfo _currentLevel;
     private int _fpsCounter;
+    public int score = 0;
     private (int x, int y) _handleBlockPos = (0, 0);
     private readonly (int x, int y) _renderOff = (5, 0);
     private readonly (int x, int y) _mapStartPos = (13, 1);
@@ -49,6 +50,10 @@ public class TeTrisMap
         for (int i = 0; i < _nextBlock.Length; ++i)
             SetNextBlock(i, GetRandomBlockType());
         SetHandleBlockFromNextBlock();
+
+        score = 0;
+        AddScore(0);
+        SetLevel(1);
     }
 
     private BlockType GetRandomBlockType()
@@ -72,7 +77,6 @@ public class TeTrisMap
                 return _typeProbability[i].type;
             }
         }
-
         return BlockType.I;
     }
 
@@ -131,6 +135,7 @@ public class TeTrisMap
 
     private void SetHandleBlockFromNextBlock()
     {
+        End();
         _handleBlock = _nextBlock[0];
         _handleBlockPos = HandelBlockStartPos;
         _preivousPredictionPos = GetBottomPos(_handleBlockPos);
@@ -145,20 +150,24 @@ public class TeTrisMap
         }
     }
 
-    public void SetLevel(int level)
+    private void SetLevel(int level)
     {
-        ConsoleHelper.Write(level.ToString(), LevelPos);
+        _currentLevel = GameManager.GetLevelInfo(level);
+        ConsoleHelper.Write(_currentLevel.level.ToString(), LevelPos);
     }
 
-    public void SetScore(int score)
+    private void AddScore(int score)
     {
-        ConsoleHelper.Write(score.ToString(), ScorePos);
+        this.score += score;
+        if (_currentLevel.levelUpScore < this.score)
+            SetLevel(_currentLevel.level + 1);
+        ConsoleHelper.Write(this.score.ToString(), ScorePos);
     }
 
     public void Update(ConsoleKeyInfo? keyInfo)
     {
         ++_fpsCounter;
-        if (GameManager.TargetFps - 30 < _fpsCounter)
+        if (GameManager.TargetFps - _currentLevel.fallTick < _fpsCounter)
         {
             TryHandleBlockDown();
         }
@@ -220,6 +229,8 @@ public class TeTrisMap
                 }
             }
         }
+
+        AddScore(count * GameManager.LineClearScore);
     }
 
     private void Control(ConsoleKeyInfo? keyInfo)
@@ -263,6 +274,7 @@ public class TeTrisMap
                 _map[yPos, xPos] = _handleBlock.color;
             }
         }
+        AddScore(GameManager.DropScore);
     }
 
     private bool TryHandleBlockMove((int x, int y) movePos)
@@ -345,6 +357,8 @@ public class TeTrisMap
             {
                 if (shape[y][x] == ' ')
                     continue;
+                if(pos.y + y == 0)
+                    continue;
                 ConsoleHelper.Write(ch, pos.x + x, pos.y + y, color);
             }
         }
@@ -376,5 +390,20 @@ public class TeTrisMap
         SetHandleBlockFromNextBlock();
         TryClearLine();
         _fpsCounter = 0;
+    }
+
+    private void End()
+    {
+        for (int y = 0; y < 2; ++y)
+        {
+            for (int x = 0; x < 4; ++x)
+            {
+                if (_map[y, x + 3] != TetrisColor.None)
+                { 
+                    GameManager.isRunning = false;
+                    ConsoleHelper.Write("Game Over",  ScorePos.x- 7, ScorePos.y + 3, TetrisColor.Red);
+                }
+            }
+        }
     }
 }
