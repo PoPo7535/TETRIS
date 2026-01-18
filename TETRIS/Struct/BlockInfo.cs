@@ -13,13 +13,13 @@ public struct BlockInfo(BlockType type, TetrisColor color, string[][] allShape)
     private int GetNextIndex()
     {
         var nextIndex = shapeIndex + 1;
-        return nextIndex == shape.Length ? 0 : nextIndex;
+        return nextIndex == allShape.Length ? 0 : nextIndex;
     }
 
-    private void RotationShape()
+    public void RotationShape()
     {
         ++shapeIndex;
-        if (shapeIndex == shape.Length)
+        if (shapeIndex == allShape.Length)
             shapeIndex = 0;
     }
 }

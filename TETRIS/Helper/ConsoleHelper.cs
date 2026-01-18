@@ -9,7 +9,7 @@ public static class ConsoleHelper
     static ConsoleHelper()
     {
         Console.OutputEncoding = Encoding.UTF8;
-        Console.SetWindowSize(100,25);
+        Console.SetWindowSize(100, 25);
         Console.CursorVisible = false;
         colors.Add(TetrisColor.Red, "\e[38;2;255;60;60m");
         colors.Add(TetrisColor.Pink, "\e[38;2;255;105;180m");
@@ -20,6 +20,7 @@ public static class ConsoleHelper
         colors.Add(TetrisColor.Purple, "\e[38;2;160;64;160m");
         colors.Add(TetrisColor.SkyBlue, "\e[38;2;135;206;235m");
     }
+
     public static void Write(string str)
         => Console.Write(str);
 
@@ -36,27 +37,29 @@ public static class ConsoleHelper
             Console.Write($"{colors[tetrisColor]}{str}\e[0m");
         Console.SetCursorPosition(cursorBuffer.Left, cursorBuffer.Top);
     }
-    
+
     public static void Write(char str, int left, int top, TetrisColor tetrisColor = TetrisColor.None)
     {
         Write(str.ToString(), left, top, tetrisColor);
     }
+
     public static void Write(string str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
-                                 {
-                                     Write(str, pos.left, pos.top, tetrisColor);
-                                 }
-                                 public static void Write(char str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
-                                 {
-                                     Write(str.ToString(), pos.left, pos.top, tetrisColor);
-                                 }
-                             
-                                 public static void Write(string str, TetrisColor tetrisColor)
+    {
+        Write(str, pos.left, pos.top, tetrisColor);
+    }
+
+    public static void Write(char str, (int left, int top) pos, TetrisColor tetrisColor = TetrisColor.None)
+    {
+        Write(str.ToString(), pos.left, pos.top, tetrisColor);
+    }
+
+    public static void Write(string str, TetrisColor tetrisColor)
         => Console.Write($"{colors[tetrisColor]}{str}\e[0m");
 
     public static void WriteLine(string str) =>
         Write($"{str}\n");
-    
-    public static void WriteLine(string str, int left, int top,  TetrisColor tetrisColor = TetrisColor.None)
+
+    public static void WriteLine(string str, int left, int top, TetrisColor tetrisColor = TetrisColor.None)
     {
         Write($"{str}\n", left, top, tetrisColor);
     }
